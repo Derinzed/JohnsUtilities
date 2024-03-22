@@ -4,7 +4,7 @@ namespace JohnUtilities.Interfaces
 {
     public interface IFileManager
     {
-        INNS_FileService FileService { get; set; }
+        IJU_FileService FileService { get; set; }
 
         bool Copy(string originalLocation, string destination, bool overwrite = false);
         int CopyDirectory(string originalLocation, string destination, bool overwrite);

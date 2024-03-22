@@ -5,7 +5,7 @@ using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_DateTime : INNS_DateTime
+    public class JU_DateTime : IJU_DateTime
     {
         public DateTime Now()
         {

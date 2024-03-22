@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_XMLService
+    public interface IJU_XMLService
     {
 
          XmlElement GetRoot();

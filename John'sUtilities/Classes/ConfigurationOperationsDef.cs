@@ -12,7 +12,7 @@ namespace JohnUtilities.Classes
 {
     public class ConfigurationOperationsDef
     {
-        public ConfigurationOperationsDef(IConfigurationManager configMan, IFileManager fileMan, EnvironmentalManager envMan, INNS_ProcessService procServ)
+        public ConfigurationOperationsDef(IConfigurationManager configMan, IFileManager fileMan, EnvironmentalManager envMan, IJU_ProcessService procServ)
         {
             ConfigManager = configMan;
             FileManager = fileMan;
@@ -70,6 +70,6 @@ namespace JohnUtilities.Classes
         IConfigurationManager ConfigManager;
         IFileManager FileManager;
         EnvironmentalManager EnvironmentManager;
-        INNS_ProcessService ProcessService;
+        IJU_ProcessService ProcessService;
     }
 }

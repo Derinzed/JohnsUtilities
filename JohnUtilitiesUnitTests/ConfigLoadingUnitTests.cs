@@ -126,7 +126,7 @@ namespace JohnUtilities.UnitTests
             Assert.AreEqual("testResult2.2", result22);
             Assert.AreEqual("testResult3", result3);
 
-            List<ConfigurationElement> children = container.Where(x => x.Parent == ".TestConfig.TestAttribute2").ToList();
+            List<ConfigurationElement> children = container.Where(x => x.ParentName == ".TestConfig.TestAttribute2").ToList();
 
             Assert.AreEqual("TestAttribute2.1", children[0].Key);
             Assert.AreEqual("TestAttribute2.2", children[1].Key);

@@ -7,10 +7,10 @@ using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_StreamWriter : INNS_StreamWriter
+    public class JU_StreamWriter : IJU_StreamWriter
     {
-        public NNS_StreamWriter() { }
-        public NNS_StreamWriter(string file, bool _AutoFlush)
+        public JU_StreamWriter() { }
+        public JU_StreamWriter(string file, bool _AutoFlush)
         {
             writer = new StreamWriter(file) { AutoFlush = _AutoFlush };
         }

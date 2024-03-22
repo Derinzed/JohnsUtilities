@@ -7,7 +7,7 @@ namespace JohnUtilities.Interfaces
         bool IsRunning { get; }
         string OriginalPath { get; }
         string PathOverride { get; set; }
-        INNS_Process Process { get; }
+        IJU_Process Process { get; }
         string ProcessName { get; set; }
         int ReturnCode { get; }
 

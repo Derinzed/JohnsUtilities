@@ -6,9 +6,9 @@ using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_XMLService : INNS_XMLService
+    public class JU_XMLService : IJU_XMLService
     {
-        public NNS_XMLService()
+        public JU_XMLService()
         {
             Document = new XmlDocument();
         }

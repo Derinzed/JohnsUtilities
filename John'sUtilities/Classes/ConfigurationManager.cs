@@ -45,7 +45,7 @@ namespace JohnUtilities.Classes
         }
         private void ResolveReferences()
         {
-            foreach (var item in ConfigurationItems.Where(x => x.Parent.EndsWith("Definitions")).ToList())
+            foreach (var item in ConfigurationItems.Where(x => x.ParentName.EndsWith("Definitions")).ToList())
             {
                 foreach (var attribute in item.Attributes)
                 {
@@ -177,7 +177,7 @@ namespace JohnUtilities.Classes
                 return;
             }
 
-            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, val, "NULL", "NULL", attribute));
+            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, val, "NULL", "NULL", attributeName: attribute));
         }
 
         public void AddConfigurationSetting(string key, string[] val, string[] attribute)
@@ -192,7 +192,7 @@ namespace JohnUtilities.Classes
                 return;
             }
 
-            ConfigurationItems.Add(new ConfigurationElement(key, val, "NULL", attribute));
+            ConfigurationItems.Add(new ConfigurationElement(key, val, "NULL", "NULL", attributeName: attribute));
         }
 
         public string GetConfigurationSetting(string key, string attribute = "value")
@@ -215,7 +215,7 @@ namespace JohnUtilities.Classes
                 Logging.WriteLogLine("Warning.  The configuration does not have the key: " + key + " registered.  Are you sure its defined?", LoggingLevel.Debug);
                 return "";
             }
-            return ConfigurationItems.First(x => x.Key == key && x.Parent == Parent).Attributes.First(y => y.Name == attribute).Value;
+            return ConfigurationItems.First(x => x.Key == key && x.ParentName == Parent).Attributes.First(y => y.Name == attribute).Value;
 
         }
         public void AddReference(string reference, string value)
@@ -223,18 +223,21 @@ namespace JohnUtilities.Classes
             ReferenceSubstitutions.Add(reference, value);
             ReplaceReferences();
         }
-
+        public ConfigurationElement GetItemFromName(string name)
+        {
+            return ConfigurationItems.FirstOrDefault(x => x.Key == name);
+        }
         public List<ConfigurationElement> GetItemsWithPartialParent(string parent)
         {
-            return ConfigurationItems.Where(x => x.Parent.EndsWith(parent)).ToList();
+            return ConfigurationItems.Where(x => x.ParentName.EndsWith(parent)).ToList();
         }
         public List<ConfigurationElement> GetItemsWithParent(string parent)
         {
-            return ConfigurationItems.Where(x => x.Parent == parent).ToList();
+            return ConfigurationItems.Where(x => x.ParentName == parent).ToList();
         }
         public List<ConfigurationElement> GetItemsWithPartialParentAndAttributeValue(string parent, string Attribute, string AttributeValue)
         {
-            return ConfigurationItems.Where(x => x.Parent.EndsWith(parent) && x.GetAttribute(Attribute).Contains(AttributeValue)).ToList();
+            return ConfigurationItems.Where(x => x.ParentName.EndsWith(parent) && x.GetAttribute(Attribute).Contains(AttributeValue)).ToList();
         }
         public List<ConfigurationElement> GetItemsWithAttributeValue(string Attribute, string AttributeValue)
         {
@@ -292,7 +295,11 @@ namespace JohnUtilities.Classes
 
         public List<ConfigurationElement> GetChildrenElements(string element)
         {
-            return ConfigurationItems.Where(x => x.Parent.Contains(element)).ToList();
+            return ConfigurationItems.Where(x => x.ParentName.Contains(element)).ToList();
+        }
+        public List<ConfigurationElement> GetChildrenElements(ConfigurationElement element)
+        {
+            return ConfigurationItems.Where(x => x.ParentUUID == element.UUID).ToList();
         }
 
         public void RegisterOperations(string operationType, Action<ConfigurationElement> action)
@@ -316,7 +323,7 @@ namespace JohnUtilities.Classes
 
         public ConfigurationElement GetConfigurationElement(ConfigurationElement element)
         {
-            return ConfigurationItems.FirstOrDefault(x => x.Key == element.Key && x.Parent == element.Parent);
+            return ConfigurationItems.FirstOrDefault(x => x.Key == element.Key && x.ParentName == element.ParentName);
         }
         public void PerformOperation(string operation, ConfigurationElement element)
         {
@@ -335,7 +342,7 @@ namespace JohnUtilities.Classes
 
             //Get parents
             List<string> Parents = new List<string>();
-            Parents = Element.Parent.Split('.').ToList();
+            Parents = Element.ParentName.Split('.').ToList();
 
             //Filter to be only valid operations
             Parents = Parents.Intersect(Ops).ToList();

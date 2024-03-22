@@ -6,7 +6,7 @@ using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_FileService : INNS_FileService
+    public class JU_FileService : IJU_FileService
     {
         public bool FileExists(string file)
         {
@@ -44,9 +44,9 @@ namespace JohnUtilities.Services.Adapters
         {
             return File.ReadLines(file);
         }
-        public INNS_FileInfo GetFileInfo(string path)
+        public IJU_FileInfo GetFileInfo(string path)
         {
-            return new NNS_FileInfo(new FileInfo(path));
+            return new JU_FileInfo(new FileInfo(path));
         }
 
         public void Delete(string path)

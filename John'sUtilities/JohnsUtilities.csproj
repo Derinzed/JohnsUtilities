@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +58,7 @@
     <Compile Include="Classes\Logging.cs" />
     <Compile Include="Classes\NotificationEventArgs.cs" />
     <Compile Include="Classes\RegistryPath.cs" />
+    <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\SettingsProcessor.cs" />
     <Compile Include="Classes\SystemConfigurationAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +72,8 @@
     <Compile Include="Services\Adapters\JU_XMLService.cs" />
     <Compile Include="Services\Adapters\ProcessesManager.cs" />
     <Compile Include="Services\Adapters\ProcessOpener.cs" />
-    <Compile Include="Services\Interfaces\IConfigLoading.cs" />
-    <Compile Include="Services\Interfaces\IConfigurationManager.cs" />
+    <Compile Include="Interfaces\IConfigLoading.cs" />
+    <Compile Include="Interfaces\IConfigurationManager.cs" />
     <Compile Include="Services\Interfaces\IFileManager.cs" />
     <Compile Include="Services\Interfaces\IJU_DateTime.cs" />
     <Compile Include="Services\Interfaces\IJU_EnvironmentalService.cs" />

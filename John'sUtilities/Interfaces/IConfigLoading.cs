@@ -14,7 +14,7 @@ namespace JohnUtilities.Interfaces
         XmlNode FindFirstNodeWithName(string path, string name);
         XmlElement GetRoot();
         void LoadDocument(string doc);
-        void LoadTree(XmlNode _node, List<ConfigurationElement> container);
+        void LoadTree(XmlNode _node, List<ConfigurationElement> container, string UUID="NULL");
         void ApplyXMLChanges(List<ConfigurationManagerRegisteredChange> changes);
         void SaveXML(string path = "");
         XmlDocument LoadXMLAsDocument(string xml);

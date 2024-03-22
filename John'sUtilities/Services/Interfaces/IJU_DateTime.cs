@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    interface INNS_DateTime
+    interface IJU_DateTime
     {
 
         DateTime Now();

@@ -12,7 +12,7 @@ namespace JohnUtilities.Classes
     public class ConfigLoading : IConfigLoading
     {
 
-        public ConfigLoading(INNS_XMLService service)
+        public ConfigLoading(IJU_XMLService service)
         {
             XMLService = service;
         }
@@ -47,7 +47,7 @@ namespace JohnUtilities.Classes
             return _node.Attributes;
         }
 
-        private string ObtainFullyQualifiedParent(XmlNode Node)
+        private string ObtainFullyQualifiedParentName(XmlNode Node)
         {
             string FullyQualifiedParent = "";
             var ParentNames = new Stack<string>();
@@ -69,12 +69,14 @@ namespace JohnUtilities.Classes
             return FullyQualifiedParent;
         }
 
-        public void LoadTree(XmlNode _node, List<ConfigurationElement> container)
+        public void LoadTree(XmlNode _node, List<ConfigurationElement> container, string ParentUUID = "NULL")
         {
             XmlNode Node = _node;
             XmlAttributeCollection result;
             while (Node != null)
             {
+                var UUID = Guid.NewGuid().ToString();
+
                 result = GetAttributesFromNode(Node);
 
                 if (Node.Name == "#comment")
@@ -95,13 +97,13 @@ namespace JohnUtilities.Classes
 
                 if (Node.HasChildNodes)
                 {
-                    LoadTree(Node.FirstChild, container);
+                    LoadTree(Node.FirstChild, container, UUID);
                 }
 
                 string ParentNodeName = "";
                 if(Node.ParentNode != null)
                 {
-                    ParentNodeName = ObtainFullyQualifiedParent(Node);
+                    ParentNodeName = ObtainFullyQualifiedParentName(Node);
                 }
                 else
                 {
@@ -110,7 +112,7 @@ namespace JohnUtilities.Classes
 
                 var OwningDocument = Node.OwnerDocument == null ? "NULL" : Node.OwnerDocument.BaseURI;
     
-                container.Add(ConfigurationElement.CreateConfigurationElement(Node.Name, AttributeList, ParentNodeName, OwningDocument));
+                container.Add(ConfigurationElement.CreateConfigurationElement(Node.Name, AttributeList, ParentNodeName, UUID, ParentUUID, file:OwningDocument));
 
                 Node = Node.NextSibling;
             }
@@ -195,6 +197,6 @@ namespace JohnUtilities.Classes
             XMLService.SaveDocument(path);
         }
 
-        INNS_XMLService XMLService;
+        IJU_XMLService XMLService;
     }
 }

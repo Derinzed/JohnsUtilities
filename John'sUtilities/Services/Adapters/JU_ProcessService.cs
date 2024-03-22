@@ -7,7 +7,7 @@ using JohnUtilities.Classes;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_ProcessService : INNS_ProcessService
+    public class JU_ProcessService : IJU_ProcessService
     {
         public void Start(ProcessStartInfo info)
         {

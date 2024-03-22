@@ -2,7 +2,7 @@
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_Process
+    public interface IJU_Process
     {
         Process Process { get; set; }
         void WaitForExit();

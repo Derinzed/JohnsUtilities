@@ -7,7 +7,7 @@ using JohnUtilities.Classes;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_Process : INNS_Process
+    public class JU_Process : IJU_Process
     {
         public Process Process { get; set; } = new Process();
 

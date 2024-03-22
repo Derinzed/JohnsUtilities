@@ -5,7 +5,7 @@ using System.IO;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_StreamWriter
+    public interface IJU_StreamWriter
     {
         void WriteLine(string line);
         StreamWriter writer { get; set; }

@@ -15,7 +15,7 @@ namespace JohnUtilities.Classes
         {
 
         }
-        public FileManager(INNS_FileService service, IProcessesManager procMan)
+        public FileManager(IJU_FileService service, IProcessesManager procMan)
         {
             FileService = service;
             ProcessManager = procMan;
@@ -34,8 +34,8 @@ namespace JohnUtilities.Classes
                     return true;
                 }
 
-                INNS_FileInfo file = FileService.GetFileInfo(originalLocation);
-                INNS_FileInfo destFile = FileService.GetFileInfo(destination);
+                IJU_FileInfo file = FileService.GetFileInfo(originalLocation);
+                IJU_FileInfo destFile = FileService.GetFileInfo(destination);
                 if (destFile.Exists())
                 {
                     if (file.LastWriteTime() > destFile.LastWriteTime())
@@ -271,7 +271,7 @@ namespace JohnUtilities.Classes
             return args;
         }
 
-        public INNS_FileService FileService { get; set; }
+        public IJU_FileService FileService { get; set; }
         private IProcessesManager ProcessManager;
     }
 }

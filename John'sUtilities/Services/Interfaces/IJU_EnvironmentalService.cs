@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_EnvironmentalService
+    public interface IJU_EnvironmentalService
     {
         string GetEnvironmentalVariable(string variable);
         string GetEnvironmentalVariableTarget(string variable, EnvironmentVariableTarget target = EnvironmentVariableTarget.User);

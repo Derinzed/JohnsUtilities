@@ -14,7 +14,7 @@ namespace JohnUtilities.Classes
     {
         public EnvironmentalManager()
         {
-            EnvironmentalService = new NNS_EnvironmentalService();
+            EnvironmentalService = new JU_EnvironmentalService();
         }
         public string GetEnvironmentalVariable(string variable)
         {
@@ -126,6 +126,6 @@ namespace JohnUtilities.Classes
             var Path = RegPath ?? default;
             EnvironmentalService.DeleteRegistryValue(RegKey, value, Path);
         }
-        public INNS_EnvironmentalService EnvironmentalService { get; set; }
+        public IJU_EnvironmentalService EnvironmentalService { get; set; }
     }
 }

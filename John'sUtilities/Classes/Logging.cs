@@ -22,7 +22,7 @@ namespace JohnUtilities.Classes
             Instance = this;
         }
 
-        public Logging Init(INNS_StreamWriter writer, Dictionary<string, INNS_StreamWriter> _customLogs, int loggingLevel = LoggingLevel.Standard)
+        public Logging Init(IJU_StreamWriter writer, Dictionary<string, IJU_StreamWriter> _customLogs, int loggingLevel = LoggingLevel.Standard)
         {
             logfile = writer;
             customLogs = _customLogs;
@@ -53,7 +53,7 @@ namespace JohnUtilities.Classes
                 WriteLogLine("WARNING.  RegisterNewLog was called with name: " + name + " and path: " + path + " ; however, cusom logs have been disabled.");
                 return;
             }
-            customLogs.Add(name, new NNS_StreamWriter(path, true));
+            customLogs.Add(name, new JU_StreamWriter(path, true));
         }
 
         static public void WriteCustomLogLine(string Log, string Message, int Level = LoggingLevel.Standard)
@@ -98,7 +98,7 @@ namespace JohnUtilities.Classes
 
         public int LoggingFlags = 0;
         private static Logging Instance;
-        private static Dictionary<string, INNS_StreamWriter> customLogs;
-        private static INNS_StreamWriter logfile;
+        private static Dictionary<string, IJU_StreamWriter> customLogs;
+        private static IJU_StreamWriter logfile;
     }
 }

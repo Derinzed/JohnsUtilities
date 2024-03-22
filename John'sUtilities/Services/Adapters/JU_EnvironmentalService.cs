@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_EnvironmentalService : INNS_EnvironmentalService
+    public class JU_EnvironmentalService : IJU_EnvironmentalService
     {
         public string GetEnvironmentalVariable(string variable)
         {

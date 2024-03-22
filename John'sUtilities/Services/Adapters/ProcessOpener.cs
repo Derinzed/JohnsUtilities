@@ -12,7 +12,7 @@ namespace JohnUtilities.Classes
     public class ProcessOpener : IProcessOpener
     {
 
-        public INNS_Process Process { get; private set; }
+        public IJU_Process Process { get; private set; }
         public string ProcessName { get; set; }
         public string PathOverride { get; set; }
         public string OriginalPath { get; private set; } = "";
@@ -20,7 +20,7 @@ namespace JohnUtilities.Classes
         public bool IsRunning { get; private set; }
         public int ReturnCode { get; private set; }
 
-        public ProcessOpener(string name, INNS_Process process)
+        public ProcessOpener(string name, IJU_Process process)
         {
             ProcessName = name;
             Process = process;
@@ -30,7 +30,7 @@ namespace JohnUtilities.Classes
         }
         public ProcessOpener(string name, string path = "", string args = "", bool StartMinimized = false, bool useShellExecute = true, bool NoWindow = true, bool waitForExit = false, bool redirectOutput = false)
         {
-            Process = new NNS_Process();
+            Process = new JU_Process();
             ProcessName = name;
             PathOverride = "";
 

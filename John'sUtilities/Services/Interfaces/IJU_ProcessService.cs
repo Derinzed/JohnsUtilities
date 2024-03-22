@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_ProcessService
+    public interface IJU_ProcessService
     {
         void Start(ProcessStartInfo info);
         bool IsProcessRunning(string process);

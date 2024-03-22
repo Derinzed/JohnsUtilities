@@ -6,7 +6,7 @@ using JohnUtilities.Services.Adapters;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_FileService
+    public interface IJU_FileService
     {
         bool FileExists(string file);
         void Copy(string original, string destination, bool overwrite);
@@ -23,7 +23,7 @@ namespace JohnUtilities.Services.Interfaces
 
         void SetAttributes(string path, FileAttributes attributes);
         bool DirectoryExists(string directory);
-        INNS_FileInfo GetFileInfo(string path);
+        IJU_FileInfo GetFileInfo(string path);
         string GetDirectoryName(string directory);
 
 

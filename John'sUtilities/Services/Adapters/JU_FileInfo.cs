@@ -6,10 +6,10 @@ using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.Services.Adapters
 {
-    public class NNS_FileInfo : INNS_FileInfo
+    public class JU_FileInfo : IJU_FileInfo
     {
 
-        public NNS_FileInfo(FileInfo fi)
+        public JU_FileInfo(FileInfo fi)
         {
             info = fi;
         }

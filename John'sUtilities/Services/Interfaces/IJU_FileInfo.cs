@@ -5,7 +5,7 @@ using System.IO;
 
 namespace JohnUtilities.Services.Interfaces
 {
-    public interface INNS_FileInfo
+    public interface IJU_FileInfo
     {
         
         bool Exists();
