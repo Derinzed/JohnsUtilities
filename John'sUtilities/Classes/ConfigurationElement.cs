@@ -18,31 +18,33 @@ namespace JohnUtilities.Classes
 
     public class ConfigurationElement
     {
-        public ConfigurationElement(string key, IList<Attribute> attributes, string parent, string parentID, string file, string uuid)
+        public ConfigurationElement(string key, IList<Attribute> attributes, string innerText, string parent, string parentID, string file, string uuid)
         {
             Key = key;
             Attributes = attributes;
             ParentName = parent;
+            InnerText = innerText;
             UUID = uuid;
             ContainingFile = file;
             ParentUUID = parentID;
         }
-        public ConfigurationElement(string key, string value, string parent, string parentID, string uuid, string file, string attributeName = "value")
+        public ConfigurationElement(string key, string value, string innerText, string parent, string parentID, string uuid, string file, string attributeName = "value")
         {
             Key = key;
             Attributes.Add(new Attribute(attributeName, value));
             ParentName = parent;
+            InnerText = innerText; 
             UUID = uuid;
             ContainingFile = file;
             ParentUUID = parentID;
         }
-        public static ConfigurationElement CreateConfigurationElement(string key, IList<Attribute> attributes, string parent, string UUID, string parentID = "NULL", string file = "NULL", string attributeName = "value")
+        public static ConfigurationElement CreateConfigurationElement(string key, IList<Attribute> attributes, string innerText, string parent, string UUID, string parentID = "NULL", string file = "NULL", string attributeName = "value")
         {
-            return new ConfigurationElement(key, attributes, parent, parentID, file, UUID);
+            return new ConfigurationElement(key, attributes, innerText, parent, parentID, file, UUID);
         }
-        public static ConfigurationElement CreateConfigurationElement(string key, string value, string parent,  string UUID, string parentID = "NULL", string file = "NULL", string attributeName = "value")
+        public static ConfigurationElement CreateConfigurationElement(string key, string value, string innerText, string parent,  string UUID, string parentID = "NULL", string file = "NULL", string attributeName = "value")
         {
-            return new ConfigurationElement(key, value, parent, parentID, file, UUID, attributeName);
+            return new ConfigurationElement(key, value, innerText, parent, parentID, file, UUID, attributeName);
         }
         public ConfigurationElement(string key, string[] value, string parent, string parentID, string[] attributeName)
         {
@@ -79,6 +81,7 @@ namespace JohnUtilities.Classes
         public string Key { get; set; }
         public string ContainingFile { get; private set; }
         public IList<Attribute> Attributes = new List<Attribute>();
+        public string InnerText { get; set; }
         public string ParentName { get; set; }
         public string ParentUUID { get; set; }
     }

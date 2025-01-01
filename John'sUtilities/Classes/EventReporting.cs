@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using JohnUtilities.Classes;
+using System.Threading.Tasks;
 
 namespace JohnUtilities.Model.Classes
 {
@@ -54,6 +55,17 @@ namespace JohnUtilities.Model.Classes
             }
             Logging.WriteLogLine("Invoking event With message: " + message, LoggingLevel.Debug);
             Item.Invoke(message);
+        }
+        public async void InvokeEventAsync(EventType eventType, string message)
+        {
+            Event Item = Events.FirstOrDefault(x => x.EventType == eventType);
+            if (Item == null)
+            {
+                Logging.WriteLogLine("Event type does not exist and cannot be triggered.");
+                return;
+            }
+            Logging.WriteLogLine("Invoking event With message: " + message, LoggingLevel.Debug);
+            await Task.Run(()=>Item.Invoke(message));
         }
         public void SubscribeToEvent(EventType eventType, Action<Object, NotificationEventArgs> function)
         {   

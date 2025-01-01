@@ -9,17 +9,18 @@ using System.IO;
 using System.Linq;
 using JohnUtilities.Services.Adapters;
 using JohnUtilities.Classes;
+using JohnsUtilities.Services.Interfaces;
+using JohnUtilities.Services.Interfaces;
 
 namespace JohnUtilities.IntegrationTests
 {
     [TestClass]
     public class ConfigLoadingIntegrationTests
     {
-
         [TestMethod]
         public void CanReturnAttribute()
         {
-            ConfigLoading loader = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading loader = new ConfigLoading(new JU_XMLService());
             loader.LoadDocument("..\\..\\ConfigTest\\Testconfig.xml");
 
             Tuple<string, string> node;
@@ -32,13 +33,13 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void GivenXMLFile_CanLoadFileIntoDictionary()
         {
-            ConfigLoading loader = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading loader = new ConfigLoading(new JU_XMLService());
             loader.LoadDocument("..\\..\\ConfigTest\\Testconfig.xml");
 
             List<ConfigurationElement> container = new List<ConfigurationElement>();
 
             var ProcessManager = new ProcessesManager();
-            var ConfigManager = new ConfigurationManager(loader, new FileManager(new NNS_FileService(), ProcessManager));
+            var ConfigManager = new ConfigurationManager(loader, new FileManager(new JU_FileService(), ProcessManager));
 
             loader.LoadTree(loader.GetRoot(), container);
 
@@ -53,13 +54,13 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void GivenXMLFile_CanFindFirstNodeWithName()
         {
-            ConfigLoading loader = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading loader = new ConfigLoading(new JU_XMLService());
             loader.LoadDocument("..\\..\\ConfigTest\\Testconfig.xml");
 
             Dictionary<string, string> container = new Dictionary<string, string>();
 
             var ProcessManager = new ProcessesManager();
-            var ConfigManager = new ConfigurationManager(loader, new FileManager(new NNS_FileService(), ProcessManager));
+            var ConfigManager = new ConfigurationManager(loader, new FileManager(new JU_FileService(), ProcessManager));
 
 
             XmlNode result = loader.FindFirstNodeWithName("//*", "TestAttribute");
@@ -74,7 +75,7 @@ namespace JohnUtilities.IntegrationTests
 
             File.Copy("..\\..\\ConfigTest\\TestConfig.xml", "..\\..\\ConfigTest\\TestConfig2.xml", true);
 
-            ConfigLoading loader = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading loader = new ConfigLoading(new JU_XMLService());
             loader.LoadDocument("..\\..\\ConfigTest\\TestConfig2.xml");
             loader.LoadTree(loader.GetRoot(), container);
 
@@ -93,7 +94,7 @@ namespace JohnUtilities.IntegrationTests
 
             List<ConfigurationElement> ConfigurationInformation = new List<ConfigurationElement>();
 
-            ConfigLoading loader = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading loader = new ConfigLoading(new JU_XMLService());
             loader.LoadDocument("..\\..\\..\\ConfigTest\\TestConfig3.xml");
             loader.LoadTree(loader.GetRoot(), ConfigurationInformation);
 

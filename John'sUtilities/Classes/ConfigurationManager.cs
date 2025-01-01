@@ -8,6 +8,7 @@ using JohnUtilities.Services.Adapters;
 using JohnUtilities.Classes;
 using JohnUtilities.Interfaces;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Linq;
 
 
@@ -30,6 +31,13 @@ namespace JohnUtilities.Classes
     }
     public class ConfigurationManager : IConfigurationManager
     {
+        public ConfigurationManager(List<ConfigurationElement> Dict = null, IDictionary<string, string> references = null)
+        {
+            Loader = new ConfigLoading(new JU_XMLService());
+            FileManager = new FileManager();
+            ConfigurationItems = Dict == null ? new List<ConfigurationElement>() : Dict;
+            ReferenceSubstitutions = references == null ? new Dictionary<string, string>() : references;
+        }
         public ConfigurationManager(IConfigLoading config, IFileManager fileManager, List<ConfigurationElement> Dict = null, IDictionary<string, string> references = null)
         {
             Loader = config;
@@ -64,6 +72,11 @@ namespace JohnUtilities.Classes
             Loader.LoadDocument(file);
             Loader.LoadTree(Loader.GetRoot(), container);
         }
+        public async Task ParseWebConfig(string file, List<ConfigurationElement> container)
+        {
+            await Loader.LoadWebXMLAsDocument(file);
+            Loader.LoadTree(Loader.GetRoot(), container);
+        }
         public void LoadEnvironmentConfigurationFile()
         {
             if (!ConfigurationItems.Any(x => x.Key == "EnvironmentConfigurationFile"))
@@ -96,6 +109,12 @@ namespace JohnUtilities.Classes
                 return;
             }
             ParseConfig(configFile, ConfigurationItems);
+            ResolveReferences();
+        }
+        public async Task LoadWebConfigFile(string configFile)
+        {
+            Logging.WriteLogLine("Loading configuration file: " + configFile, LoggingLevel.Debug);
+            await ParseWebConfig(configFile, ConfigurationItems);
             ResolveReferences();
         }
         public void StageChange(ConfigurationChange change)
@@ -177,7 +196,7 @@ namespace JohnUtilities.Classes
                 return;
             }
 
-            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, val, "NULL", "NULL", attributeName: attribute));
+            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, "", val, "NULL", "NULL", attributeName: attribute));
         }
 
         public void AddConfigurationSetting(string key, string[] val, string[] attribute)

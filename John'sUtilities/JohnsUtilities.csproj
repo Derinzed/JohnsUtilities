@@ -30,10 +30,83 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLimited|AnyCPU'">
+    <OutputPath>bin\ReleaseLimited\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseFullSubscription|AnyCPU'">
+    <OutputPath>bin\ReleaseFullSubscription\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLimitedSubscription|AnyCPU'">
+    <OutputPath>bin\ReleaseLimitedSubscription\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalServerDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\LocalServerDebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AdminOverride|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\AdminOverride\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,23 +122,30 @@
     <Compile Include="Classes\ConfigurationManagerRegisteredChange.cs" />
     <Compile Include="Classes\ConfigurationOperation.cs" />
     <Compile Include="Classes\ConfigurationOperationsDef.cs" />
+    <Compile Include="Classes\ConfigurationOperationStatement.cs" />
     <Compile Include="Classes\CustomActionReturn.cs" />
     <Compile Include="Classes\CustomActions.cs" />
     <Compile Include="Classes\EnvironmentalManager.cs" />
     <Compile Include="Classes\EventHandlers.cs" />
     <Compile Include="Classes\EventReporting.cs" />
     <Compile Include="Classes\FileManager.cs" />
+    <Compile Include="Classes\JSONLoader.cs" />
     <Compile Include="Classes\Logging.cs" />
     <Compile Include="Classes\NotificationEventArgs.cs" />
     <Compile Include="Classes\RegistryPath.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\SettingsProcessor.cs" />
     <Compile Include="Classes\SystemConfigurationAccessor.cs" />
+    <Compile Include="CommandLineParser\CommandLineOptionAttribute.cs" />
+    <Compile Include="CommandLineParser\CommandlineParser.cs" />
+    <Compile Include="CommandLineParser\Exceptions.cs" />
+    <Compile Include="CommandLineParser\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Adapters\JU_DateTime.cs" />
     <Compile Include="Services\Adapters\JU_EnvironmentalService.cs" />
     <Compile Include="Services\Adapters\JU_FileInfo.cs" />
     <Compile Include="Services\Adapters\JU_FileService.cs" />
+    <Compile Include="Services\Adapters\JU_JSONService.cs" />
     <Compile Include="Services\Adapters\JU_Process.cs" />
     <Compile Include="Services\Adapters\JU_ProcessService.cs" />
     <Compile Include="Services\Adapters\JU_StreamWriter.cs" />
@@ -79,12 +159,18 @@
     <Compile Include="Services\Interfaces\IJU_EnvironmentalService.cs" />
     <Compile Include="Services\Interfaces\IJU_FileInfo.cs" />
     <Compile Include="Services\Interfaces\IJU_FileService.cs" />
+    <Compile Include="Services\Interfaces\IJU_JSONService.cs" />
     <Compile Include="Services\Interfaces\IJU_Process.cs" />
     <Compile Include="Services\Interfaces\IJU_ProcessService.cs" />
     <Compile Include="Services\Interfaces\IJU_StreamWriter.cs" />
     <Compile Include="Services\Interfaces\IJU_XMLService.cs" />
     <Compile Include="Services\Interfaces\IProcessesManager.cs" />
     <Compile Include="Services\Interfaces\IProcessOpener.cs" />
+    <Compile Include="Updater\UpdaterLibrary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

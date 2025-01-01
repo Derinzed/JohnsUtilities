@@ -6,6 +6,10 @@ using JohnUtilities.Services.Adapters;
 using JohnUtilities.Services.Interfaces;
 using JohnUtilities.Interfaces;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Net;
 
 namespace JohnUtilities.Classes
 {
@@ -32,6 +36,41 @@ namespace JohnUtilities.Classes
         public XmlDocument LoadXMLAsDocument(string xml)
         {
             return XMLService.LoadXMLAsDocument(xml);
+        }
+        public async Task<XmlDocument> LoadWebXMLAsDocument(string url)
+        {
+            int retryCount = 10;
+            for (int i = 0; i < retryCount; i++)
+            {
+                try
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    ServicePointManager.FindServicePoint(new Uri("https://raw.githubusercontent.com"))
+                                       .ConnectionLeaseTimeout = 0;
+
+                    var handler = new HttpClientHandler
+                    {
+                        MaxRequestContentBufferSize = 10_000_000,
+                        MaxResponseHeadersLength = 1024
+                    };
+
+                    using (HttpClient client = new HttpClient(handler))
+                    {
+                        client.Timeout = TimeSpan.FromMinutes(1);
+                        client.DefaultRequestHeaders.ConnectionClose = true; // Force a new connection
+                        client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeApp/1.0)");
+
+                        string xmlContent = await client.GetStringAsync(url);
+                        return XMLService.LoadXMLAsDocument(xmlContent);
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (i == retryCount - 1) throw; // Re-throw after retries
+                    await Task.Delay(1000); // Wait 1 second before retrying
+                }
+            }
+            return null; // Fallback in case of an error
         }
         public Tuple<string, string> GetAttributeAndNode(string _node, string attribute)
         {
@@ -77,6 +116,8 @@ namespace JohnUtilities.Classes
             {
                 var UUID = Guid.NewGuid().ToString();
 
+                string InnerText = Node.InnerText;
+
                 result = GetAttributesFromNode(Node);
 
                 if (Node.Name == "#comment")
@@ -112,7 +153,7 @@ namespace JohnUtilities.Classes
 
                 var OwningDocument = Node.OwnerDocument == null ? "NULL" : Node.OwnerDocument.BaseURI;
     
-                container.Add(ConfigurationElement.CreateConfigurationElement(Node.Name, AttributeList, ParentNodeName, UUID, ParentUUID, file:OwningDocument));
+                container.Add(ConfigurationElement.CreateConfigurationElement(Node.Name, AttributeList, InnerText, ParentNodeName, UUID, ParentUUID, file:OwningDocument));
 
                 Node = Node.NextSibling;
             }
