@@ -136,6 +136,7 @@
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\SettingsProcessor.cs" />
     <Compile Include="Classes\SystemConfigurationAccessor.cs" />
+    <Compile Include="Classes\XMLWriter.cs" />
     <Compile Include="CommandLineParser\CommandLineOptionAttribute.cs" />
     <Compile Include="CommandLineParser\CommandlineParser.cs" />
     <Compile Include="CommandLineParser\Exceptions.cs" />

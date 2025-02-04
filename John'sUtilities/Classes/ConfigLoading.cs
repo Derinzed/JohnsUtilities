@@ -159,14 +159,6 @@ namespace JohnUtilities.Classes
             }
         }
 
-        public void DeserializeXML()
-        {
-
-        }
-        public void SerializeXML()
-        {
-
-        }
         public XmlNode FindFirstNodeWithName(string path, string name)
         {
             XmlNodeList allNodes = XMLService.Document.SelectNodes(path);
