@@ -173,5 +173,17 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>JohnsUtilities</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Derinzed</Authors>
+    <Company>CrusaderDevelopmentStudio</Company>
+    <Description>A private library targeting .NET Framework 4.7.2</Description>
+  </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

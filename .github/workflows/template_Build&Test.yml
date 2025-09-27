@@ -1,0 +1,32 @@
+name: template_Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restore dependencies
+        run: dotnet restore ./JohnsUtilities.sln
+
+      - name: Build Release
+        run: dotnet build ./JohnsUtilities.sln --configuration Release --no-restore
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: |
+          vstest.console.exe **\*Tests.dll --Platform:x64 --Framework:Framework45
+
+      - name: Pack with MSBuild
+        run: msbuild MyAwesomeLibrary.csproj /t:pack /p:Configuration=Release
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: bin/Release/

@@ -1,0 +1,18 @@
+name: template_Package
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: ./build
+
+      - name: Push package to GitHub Packages
+        run: dotnet nuget push **\build\*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
