@@ -14,12 +14,12 @@ namespace JohnUtilities.UnitTests
     {
 
         EnvironmentalManager EnvManager;
-        Mock<INNS_EnvironmentalService> EnvService_Mock;
+        Mock<IJU_EnvironmentalService> EnvService_Mock;
 
         [TestInitialize]
         public void SetupTests()
         {
-            EnvService_Mock = new Mock<INNS_EnvironmentalService>();
+            EnvService_Mock = new Mock<IJU_EnvironmentalService>();
 
             EnvManager = new EnvironmentalManager();
             EnvManager.EnvironmentalService = EnvService_Mock.Object;

@@ -15,7 +15,7 @@ namespace JohnUtilities.IntegrationTests
         {
             string filename = "LoggingIntegrationTests.CreateLog.txt";
 
-            Logging.GetLogger().Init(new NNS_StreamWriter(filename, true), null);
+            Logging.GetLogger().Init(new JU_StreamWriter(filename, true), null);
 
             Logging.WriteLogLine("This is a test line.");
 

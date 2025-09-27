@@ -15,18 +15,18 @@ namespace JohnUtilities.UnitTests
     [TestClass]
     public class ConfigLoadingTests {
 
-        Mock<INNS_XMLService> XMLService_Mock;
+        Mock<IJU_XMLService> XMLService_Mock;
         ConfigLoading Loader;
-        NNS_XMLService XMLService;
+        JU_XMLService XMLService;
         
 
         [TestInitialize]
         public void SetupTests()
         {
-            XMLService_Mock = new Mock<INNS_XMLService>();
+            XMLService_Mock = new Mock<IJU_XMLService>();
             XMLService_Mock.SetupAllProperties();
             XMLService_Mock.CallBase = true;
-            XMLService = new NNS_XMLService();
+            XMLService = new JU_XMLService();
         }
     
         [TestMethod]
@@ -135,7 +135,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void Loadtree_GivenEmptyNode_ReturnCorrectContainerWithWarning()
         {
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
             var logger = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
 
@@ -252,7 +252,7 @@ namespace JohnUtilities.UnitTests
 
             doc = XMLService.LoadXMLAsDocument(xml);
 
-            XMLService_Mock = new Mock<INNS_XMLService>();
+            XMLService_Mock = new Mock<IJU_XMLService>();
             XMLService_Mock.SetupAllProperties();
             XMLService_Mock.CallBase = true;
 
@@ -283,14 +283,14 @@ namespace JohnUtilities.UnitTests
             string xml = "<TestConfig><TestAttribute value=\"testResult\"/><TestAttribute2 value = \"testResult2\" /></TestConfig>";
             XmlDocument doc = new XmlDocument();
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>())).Verifiable();
 
             Logging.GetLogger().Init(mockWriter.Object, null);
 
             doc = XMLService.LoadXMLAsDocument(xml);
 
-            XMLService_Mock = new Mock<INNS_XMLService>();
+            XMLService_Mock = new Mock<IJU_XMLService>();
             XMLService_Mock.SetupAllProperties();
             XMLService_Mock.CallBase = true;
 
@@ -316,14 +316,14 @@ namespace JohnUtilities.UnitTests
             string xml = "<TestConfig><TestAttribute value=\"testResult\"/><TestAttribute2 value = \"testResult2\" /></TestConfig>";
             XmlDocument doc = new XmlDocument();
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>())).Verifiable();
 
             Logging.GetLogger().Init(mockWriter.Object, null);
  
             doc = XMLService.LoadXMLAsDocument(xml);
 
-            XMLService_Mock = new Mock<INNS_XMLService>();
+            XMLService_Mock = new Mock<IJU_XMLService>();
             XMLService_Mock.SetupAllProperties();
             XMLService_Mock.CallBase = true;
 
@@ -350,7 +350,7 @@ namespace JohnUtilities.UnitTests
             string xml = "<TestConfig><TestAttribute value=\"testResult\"/><TestAttribute2 value = \"testResult2\" /></TestConfig>";
             XmlDocument doc = new XmlDocument();
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>())).Verifiable();
 
             Logging.GetLogger().Init(mockWriter.Object, null);

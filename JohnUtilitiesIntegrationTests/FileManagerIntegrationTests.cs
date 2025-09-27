@@ -24,9 +24,9 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void FileManager_CopyError()
         {
-            Logging log = Logging.GetLogger().Init(new NNS_StreamWriter("CopyFileTestLog_Error.txt", true), null);
+            Logging log = Logging.GetLogger().Init(new JU_StreamWriter("CopyFileTestLog_Error.txt", true), null);
 
-            NNS_FileService fileService = new NNS_FileService();
+            JU_FileService fileService = new JU_FileService();
 
             var ProcessManager = new ProcessesManager();
             FileManager manager = new FileManager(fileService, ProcessManager);
@@ -37,10 +37,10 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void FileManager_Copy()
         {
-            Logging log = Logging.GetLogger().Init(new NNS_StreamWriter("CopyFileTestLog.txt", true), null);
+            Logging log = Logging.GetLogger().Init(new JU_StreamWriter("CopyFileTestLog.txt", true), null);
             FileStream fs = File.Create("TestFileCopy.txt");
             fs.Close();
-            NNS_FileService fileService = new NNS_FileService();
+            JU_FileService fileService = new JU_FileService();
 
             var ProcessManager = new ProcessesManager();
             FileManager manager = new FileManager(fileService, ProcessManager);
@@ -50,12 +50,12 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void FileManager_CopyDirectory()
         {
-            Logging log = Logging.GetLogger().Init(new NNS_StreamWriter("CopyDirectoryFileTestLog.txt", true), null);
+            Logging log = Logging.GetLogger().Init(new JU_StreamWriter("CopyDirectoryFileTestLog.txt", true), null);
             Directory.CreateDirectory(".\\CopyDirectoryIntegrationTestFolder");
             FileStream fs = File.Create(".\\CopyDirectoryIntegrationTestFolder\\TestFileCopy.txt");
             fs.Close();
 
-            NNS_FileService fileService = new NNS_FileService();
+            JU_FileService fileService = new JU_FileService();
 
             var ProcessManager = new ProcessesManager();
             FileManager manager = new FileManager(fileService, ProcessManager);
@@ -65,8 +65,8 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void FileManager_GetTextFromFile()
         {
-            Logging log = Logging.GetLogger().Init(new NNS_StreamWriter("GetTextFromFile.txt", true), null);
-            NNS_FileService fileService = new NNS_FileService();
+            Logging log = Logging.GetLogger().Init(new JU_StreamWriter("GetTextFromFile.txt", true), null);
+            JU_FileService fileService = new JU_FileService();
 
             var ProcessManager = new ProcessesManager();
             FileManager manager = new FileManager(fileService, ProcessManager);

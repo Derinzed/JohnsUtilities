@@ -18,81 +18,81 @@ namespace JohnUtilities.UnitTests
         public void Start_GivenOverridePath_SetProcessPathToOverride()
         {
             var proc = new Process();
-            var NNSProcess = new Mock<INNS_Process>();
-            NNSProcess.Setup(x => x.Start()).Returns(true);
-            NNSProcess.SetupAllProperties();
-            NNSProcess.Object.Process = proc;
+            var JUProcess = new Mock<IJU_Process>();
+            JUProcess.Setup(x => x.Start()).Returns(true);
+            JUProcess.SetupAllProperties();
+            JUProcess.Object.Process = proc;
 
-            var ProcessO = new ProcessOpener("TestProcess",  NNSProcess.Object);
+            var ProcessO = new ProcessOpener("TestProcess",  JUProcess.Object);
             ProcessO.PathOverride = "TestPath";
 
             ProcessO.Start();
 
-            Assert.AreEqual("TestPath", NNSProcess.Object.Process.StartInfo.FileName);
+            Assert.AreEqual("TestPath", JUProcess.Object.Process.StartInfo.FileName);
         }
         [TestMethod]
         public void Start_GivenNoOverridePath_SetProcessPathToOriginal()
         {
             var proc = new Process();
-            var NNSProcess = new Mock<INNS_Process>();
-            NNSProcess.Setup(x => x.Start()).Returns(true);
-            NNSProcess.SetupAllProperties();
-            NNSProcess.Object.Process = proc;
+            var JUProcess = new Mock<IJU_Process>();
+            JUProcess.Setup(x => x.Start()).Returns(true);
+            JUProcess.SetupAllProperties();
+            JUProcess.Object.Process = proc;
 
-            var ProcessO = new ProcessOpener("TestProcess", NNSProcess.Object);
+            var ProcessO = new ProcessOpener("TestProcess", JUProcess.Object);
             ProcessO.PathOverride = "TestPath";
 
             ProcessO.Start();
 
-            Assert.AreEqual("TestPath", NNSProcess.Object.Process.StartInfo.FileName);
+            Assert.AreEqual("TestPath", JUProcess.Object.Process.StartInfo.FileName);
         }
         [TestMethod]
         public void Start_GivenNoPath_StartNotCalled()
         {
             var proc = new Process();
-            var NNSProcess = new Mock<INNS_Process>();
-            NNSProcess.Setup(x => x.Start()).Returns(true);
-            NNSProcess.SetupAllProperties();
-            NNSProcess.Object.Process = proc;
+            var JUProcess = new Mock<IJU_Process>();
+            JUProcess.Setup(x => x.Start()).Returns(true);
+            JUProcess.SetupAllProperties();
+            JUProcess.Object.Process = proc;
 
-            var ProcessO = new ProcessOpener("TestProcess", NNSProcess.Object);
+            var ProcessO = new ProcessOpener("TestProcess", JUProcess.Object);
 
             ProcessO.Start();
 
-            NNSProcess.Verify(x => x.Start(), Times.Never);
+            JUProcess.Verify(x => x.Start(), Times.Never);
         }
         [TestMethod]
         public void Start_GivenPath_StartCalled()
         {
             var proc = new Process();
             proc.StartInfo.FileName = "TestLoc";
-            var NNSProcess = new Mock<INNS_Process>();
-            NNSProcess.Setup(x => x.Start()).Returns(true);
-            NNSProcess.SetupAllProperties();
-            NNSProcess.Object.Process = proc;
+            var JUProcess = new Mock<IJU_Process>();
+            JUProcess.Setup(x => x.Start()).Returns(true);
+            JUProcess.SetupAllProperties();
+            JUProcess.Object.Process = proc;
 
-            var ProcessO = new ProcessOpener("TestProcess", NNSProcess.Object);
+            var ProcessO = new ProcessOpener("TestProcess", JUProcess.Object);
 
             ProcessO.Start();
 
-            NNSProcess.Verify(x => x.Start(), Times.Once);
+            JUProcess.Verify(x => x.Start(), Times.Once);
         }
         [TestMethod]
         public void Start_ProcessThrowError_ErrorCaught()
         {
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
             var logger = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
 
 
             var proc = new Process();
             proc.StartInfo.FileName = "TestLoc";
-            var NNSProcess = new Mock<INNS_Process>();
-            NNSProcess.Setup(x => x.Start()).Throws(new Exception("This is a test exception"));
-            NNSProcess.SetupAllProperties();
-            NNSProcess.Object.Process = proc;
+            var JUProcess = new Mock<IJU_Process>();
+            JUProcess.Setup(x => x.Start()).Throws(new Exception("This is a test exception"));
+            JUProcess.SetupAllProperties();
+            JUProcess.Object.Process = proc;
 
-            var ProcessO = new ProcessOpener("TestProcess", NNSProcess.Object);
+            var ProcessO = new ProcessOpener("TestProcess", JUProcess.Object);
 
             ProcessO.Start();
 

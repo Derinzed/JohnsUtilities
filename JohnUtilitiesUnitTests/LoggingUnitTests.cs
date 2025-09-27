@@ -18,7 +18,7 @@ namespace JohnUtilities.UnitTests
         public void WriteLogLine_WriteLineCalled()
         {
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
             Logging.GetLogger().Init(mockWriter.Object, null);
 
@@ -30,7 +30,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void WriteCustomLogLine_CustomLogsDisabled_PrintWarningMessage()
         {
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
             Logging.GetLogger().Init(mockWriter.Object, null);
 
@@ -45,9 +45,9 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void WriteCustomLogLine_CustomLogNotRegistered_PrintWarningMessage()
         {
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
-            var customLogs = new Dictionary<string, INNS_StreamWriter>();
+            var customLogs = new Dictionary<string, IJU_StreamWriter>();
             customLogs.Add("CustomLog", mockWriter.Object);
             Logging.GetLogger().Init(mockWriter.Object, customLogs);
 
@@ -65,10 +65,10 @@ namespace JohnUtilities.UnitTests
         public void WriteCustomLogLine_GivenValidCustomLog_WriteLineCalled()
         {
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
 
-            var customLogs = new Dictionary<string, INNS_StreamWriter>();
+            var customLogs = new Dictionary<string, IJU_StreamWriter>();
             customLogs.Add("CustomLog", mockWriter.Object);
 
             Logging.GetLogger().Init(mockWriter.Object, customLogs);
@@ -90,7 +90,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void WriteLogLine_GivenLoggingLevelStandard_DontPrintDebug()
         {
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
 
             int LogLevel = LoggingLevel.Standard;
@@ -107,7 +107,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void WriteLogLine_GivenLoggingLevelDebug_Print()
         {
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>()));
 
             int LogLevel = LoggingLevel.Standard;

@@ -19,9 +19,9 @@ namespace JohnUtilities.UnitTests
         public void Copy_ParametersPassedCorrectly()
         {
 
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
 
-            var info_mock = new Mock<INNS_FileInfo>();
+            var info_mock = new Mock<IJU_FileInfo>();
             info_mock.Setup(x => x.Exists()).Returns(false);
             info_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 4, 1, 1));
 
@@ -39,11 +39,11 @@ namespace JohnUtilities.UnitTests
         public void Copy_GivenOverwriteTrue_CopyFile()
         {
 
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
-            var info1_mock = new Mock<INNS_FileInfo>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
+            var info1_mock = new Mock<IJU_FileInfo>();
             info1_mock.Setup(x => x.Exists()).Returns(true);
             info1_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 1, 1, 1));
-            var info2_mock = new Mock<INNS_FileInfo>();
+            var info2_mock = new Mock<IJU_FileInfo>();
             info2_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 4, 1, 1));
 
             FileService_Mock.SetupSequence(x => x.GetFileInfo(It.IsAny<string>())).Returns(info2_mock.Object).Returns(info1_mock.Object);
@@ -60,17 +60,17 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void Copy_ExceptionThrown()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             SystemException ex = new SystemException("this is a test");
 
-            var info_mock = new Mock<INNS_FileInfo>();
+            var info_mock = new Mock<IJU_FileInfo>();
             info_mock.Setup(x => x.Exists()).Returns(false);
             info_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 4, 1, 1));
 
             FileService_Mock.Setup(x => x.GetFileInfo(It.IsAny<string>())).Returns(info_mock.Object);
             FileService_Mock.Setup(x => x.Copy(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Throws(ex);
 
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
 
             Logging log = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
@@ -88,11 +88,11 @@ namespace JohnUtilities.UnitTests
         public void CopyDestination_ParametersPassedCorrectly()
         {
 
-            var info_mock = new Mock<INNS_FileInfo>();
+            var info_mock = new Mock<IJU_FileInfo>();
             info_mock.Setup(x => x.Exists()).Returns(false);
 
 
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.Copy(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Verifiable();
             FileService_Mock.Setup(x => x.GetDirectories(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>())).Returns(new string[] { "Orig", "Orig2" });
             FileService_Mock.Setup(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>())).Returns(new string[] { "Test1", "Test2" });
@@ -109,11 +109,11 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void Copy_GivenNewerSource_CopyFile()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
-            var info1_mock = new Mock<INNS_FileInfo>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
+            var info1_mock = new Mock<IJU_FileInfo>();
             info1_mock.Setup(x => x.Exists()).Returns(true);
             info1_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 1, 1, 1));
-            var info2_mock = new Mock<INNS_FileInfo>();
+            var info2_mock = new Mock<IJU_FileInfo>();
             info2_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 4, 1, 1));
 
             FileService_Mock.SetupSequence(x => x.GetFileInfo(It.IsAny<string>())).Returns(info2_mock.Object).Returns(info1_mock.Object);
@@ -129,10 +129,10 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void Copy_GivenSameSource_DontCopyFile()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
-            var info1_mock = new Mock<INNS_FileInfo>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
+            var info1_mock = new Mock<IJU_FileInfo>();
             info1_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 1, 1, 1));
-            var info2_mock = new Mock<INNS_FileInfo>();
+            var info2_mock = new Mock<IJU_FileInfo>();
             info2_mock.Setup(x => x.Exists()).Returns(true);
             info2_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 1, 1, 1));
 
@@ -149,10 +149,10 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void CopyDestination_ExceptionThrown()
         {
-            var info_mock = new Mock<INNS_FileInfo>();
+            var info_mock = new Mock<IJU_FileInfo>();
             info_mock.Setup(x => x.Exists()).Returns(false);
 
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             SystemException ex = new SystemException("this is a test");
             FileService_Mock.Setup(x => x.Copy(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Throws(ex);
             FileService_Mock.Setup(x => x.GetDirectories(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>())).Returns(new string[] { "Orig", "Orig2" });
@@ -160,7 +160,7 @@ namespace JohnUtilities.UnitTests
             FileService_Mock.Setup(x => x.CreateDirectory(It.IsAny<string>())).Verifiable();
             FileService_Mock.Setup(x => x.GetFileInfo(It.IsAny<string>())).Returns(info_mock.Object);
 
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
 
             Logging log = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
@@ -174,7 +174,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetTextFromFile_NoDelimiter()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.ReadLines(It.IsAny<string>())).Returns(new List<string> {"Line1", "Line2=realy cool test line."});
 
             var ProcessManager = new ProcessesManager();
@@ -187,7 +187,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetTextFromFile_SingleDelimiter()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.ReadLines(It.IsAny<string>())).Returns(new List<string> { "Line1", "Line2=realy cool test line.","CUSTOM_CODE_ROOT=/tc/BPR/CD2128_DEV; export CUSTOM_CODE_ROOT" });
             var ProcessManager = new ProcessesManager();
             FileManager fileManager = new FileManager(FileService_Mock.Object, ProcessManager);
@@ -199,7 +199,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetTextFromFile_StartAndEndDelimiter()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.ReadLines(It.IsAny<string>())).Returns(new List<string> { "Line1", "Line2=realy cool test line.","CUSTOM_CODE_ROOT=/tc/BPR/CD2128_DEV; export CUSTOM_CODE_ROOT" });
 
             var ProcessManager = new ProcessesManager();
@@ -212,7 +212,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetTextFromFile_StartKey()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.ReadLines(It.IsAny<string>())).Returns(new List<string> { "Line1", "Line2=realy cool test line.", "CUSTOM_CODE_ROOT=/tc/BPR/CD2128_DEV; export CUSTOM_CODE_ROOT", "DEV; NX=NX 2212.7001; Tc=13.3.0.10; TcVis=133010.230329; License=27627@TCDEVLS" });
 
             var ProcessManager = new ProcessesManager();
@@ -226,7 +226,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_Delete_CallesFileServiceDelete()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.Delete(It.IsAny<string>())).Verifiable();
 
             var ProcessManager = new ProcessesManager();
@@ -239,7 +239,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_DeleteFilesInDirectory_CallsFileServiceDelete()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.GetFiles(It.IsAny<string>())).Returns(new string[] { "File1", "File2", "File3.tif" });
             FileService_Mock.Setup(x => x.GetFiles(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOption>())).Returns(new string[] { "File3.tif" });
             FileService_Mock.Setup(x => x.Delete(It.IsAny<string>())).Verifiable();
@@ -257,7 +257,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetTempPath_FileServiceCalledAndRemoveLastSlashes()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.GetTempPath()).Returns("TempPath\\");
 
             var ProcessManager = new ProcessesManager();
@@ -272,7 +272,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetUserProfilePath_FileServiceCalled()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.GetUserProfilePath()).Returns("TempPath");
 
             var ProcessManager = new ProcessesManager();
@@ -286,7 +286,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_DeleteDirectory_FileServiceDeleteDirecotryCalled()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.SetupSequence(x => x.GetDirectories(It.IsAny<string>())).Returns(new string[] { "Directory1" }).Returns(new string[] { }).Returns(new string[] { });
             FileService_Mock.SetupSequence(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
             FileService_Mock.Setup(x => x.GetFiles(It.IsAny<string>())).Returns(new string[] {  });
@@ -303,7 +303,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_FileExists_ReturnTrue()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
 
             var ProcessManager = new ProcessesManager();
@@ -314,7 +314,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_FileExists_ReturnFalse()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
 
             var ProcessManager = new ProcessesManager();
@@ -325,7 +325,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_DirectoryExists_ReturnTrue()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(true);
 
             var ProcessManager = new ProcessesManager();
@@ -336,7 +336,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_DirectoryExists_ReturnFalse()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.DirectoryExists(It.IsAny<string>())).Returns(false);
 
             var ProcessManager = new ProcessesManager();
@@ -347,7 +347,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_GetSubdirectories_ReturnsProperDirectories()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.GetDirectories(It.IsAny<string>())).Returns(new string[] { "one", "Two", "Three" });
 
             var ProcessManager = new ProcessesManager();
@@ -361,13 +361,13 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_CopyDirectories_ReturnsProperNumberOfCopies()
         {
-            var info_mock = new Mock<INNS_FileInfo>();
+            var info_mock = new Mock<IJU_FileInfo>();
             info_mock.Setup(x => x.Exists()).Returns(false);
 
 
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
 
-            var fileInfo_mock = new Mock<INNS_FileInfo>();
+            var fileInfo_mock = new Mock<IJU_FileInfo>();
             fileInfo_mock.Setup(x => x.LastWriteTime()).Returns(new DateTime(1, 1, 1, 1, 4, 1, 1));
             fileInfo_mock.Setup(x => x.Exists()).Returns(false);
             FileService_Mock.SetupSequence(x => x.GetFileInfo(It.IsAny<string>())).Returns(fileInfo_mock.Object);
@@ -390,7 +390,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_RobocopyWithFalseOverride_PassesCorrectArguments()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             var ProcessManager = new Mock<IProcessesManager>();
 
             ProcessManager.Setup(x => x.SetProcessArguments(It.IsAny<string>(), It.IsAny<string>())).Verifiable();
@@ -405,7 +405,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void FileManager_RobocopyWithTrueOverride_PassesCorrectArguments()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             var ProcessManager = new Mock<IProcessesManager>();
 
             ProcessManager.Setup(x => x.SetProcessArguments(It.IsAny<string>(), It.IsAny<string>())).Verifiable();
@@ -420,7 +420,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void CreateDirectory_DirectoryCreated()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             var ProcessManager = new Mock<IProcessesManager>();
 
             FileService_Mock.Setup(x => x.CreateDirectory(It.IsAny<string>()));

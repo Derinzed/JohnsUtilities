@@ -196,7 +196,7 @@ namespace JohnUtilities.Classes
                 return;
             }
 
-            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, "", val, "NULL", "NULL", attributeName: attribute));
+            ConfigurationItems.Add(ConfigurationElement.CreateConfigurationElement(key, val, "", "NULL", "NULL", attributeName: attribute));
         }
 
         public void AddConfigurationSetting(string key, string[] val, string[] attribute)

@@ -15,16 +15,16 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void GetConfigurationSettings_GetAttributeFromConfigurationElements()
         {
-            var XMLService = new NNS_XMLService();
+            var XMLService = new JU_XMLService();
             var ProcessManager = new ProcessesManager();
-            var FileService = new NNS_FileService();
+            var FileService = new JU_FileService();
             var FileManager = new FileManager(FileService, ProcessManager);
 
             FileManager.Copy("..\\..\\ConfigTest\\TestConfig.xml", "..\\..\\..\\ConfigTest\\TestConfig3.xml", true);
 
             List<ConfigurationElement> ConfigurationInformation = new List<ConfigurationElement>();
 
-            ConfigLoading configLoading = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading configLoading = new ConfigLoading(new JU_XMLService());
             configLoading.LoadDocument("..\\..\\ConfigTest\\TestConfig3.xml");
             configLoading.LoadTree(configLoading.GetRoot(), ConfigurationInformation);
 
@@ -43,16 +43,16 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void ApplyChanges_GivenChangeApplyToData()
         {
-            var XMLService = new NNS_XMLService();
+            var XMLService = new JU_XMLService();
             var ProcessManager = new ProcessesManager();
-            var FileService = new NNS_FileService();
+            var FileService = new JU_FileService();
             var FileManager = new FileManager(FileService, ProcessManager);
 
             FileManager.Copy("..\\..\\ConfigTest\\TestConfig.xml", "..\\..\\ConfigTest\\TestConfig3.xml", true);
 
             List<ConfigurationElement> ConfigurationInformation = new List<ConfigurationElement>();
 
-            ConfigLoading configLoading = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading configLoading = new ConfigLoading(new JU_XMLService());
             configLoading.LoadDocument("..\\..\\ConfigTest\\TestConfig3.xml");
             configLoading.LoadTree(configLoading.GetRoot(), ConfigurationInformation);
 
@@ -75,17 +75,17 @@ namespace JohnUtilities.IntegrationTests
         [TestMethod]
         public void ApplyChanges_GivenChangeApplyToDataAndSaveToFile()
         {
-            var XMLService = new NNS_XMLService();
+            var XMLService = new JU_XMLService();
             var ProcessManager = new ProcessesManager();
-            var FileService = new NNS_FileService();
+            var FileService = new JU_FileService();
             var FileManager = new FileManager(FileService, ProcessManager);
 
             FileManager.Copy("..\\..\\ConfigTest\\TestConfig.xml", "..\\..\\ConfigTest\\TestConfig4.xml", true);
 
             List<ConfigurationElement> ConfigurationInformation = new List<ConfigurationElement>();
-            ConfigurationInformation.Add(new ConfigurationElement("EnvironmentConfigurationFile", "..\\..\\ConfigTest\\TestConfig4.xml", "RootNode", "NULL", "1"));
+            ConfigurationInformation.Add(new ConfigurationElement("EnvironmentConfigurationFile", "..\\..\\ConfigTest\\TestConfig4.xml", "", "RootNode", "", "NULL", "1"));
 
-            ConfigLoading configLoading = new ConfigLoading(new NNS_XMLService());
+            ConfigLoading configLoading = new ConfigLoading(new JU_XMLService());
             configLoading.LoadDocument("..\\..\\ConfigTest\\TestConfig4.xml");
             configLoading.LoadTree(configLoading.GetRoot(), ConfigurationInformation);
 
@@ -102,7 +102,7 @@ namespace JohnUtilities.IntegrationTests
 
             ConfigurationInformation = new List<ConfigurationElement>();
 
-            configLoading = new ConfigLoading(new NNS_XMLService());
+            configLoading = new ConfigLoading(new JU_XMLService());
             configLoading.LoadDocument("..\\..\\ConfigTest\\TestConfig4.xml");
             configLoading.LoadTree(configLoading.GetRoot(), ConfigurationInformation);
             ConfigManager = new ConfigurationManager(configLoading, FileManager, ConfigurationInformation);

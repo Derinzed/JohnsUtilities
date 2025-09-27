@@ -20,13 +20,13 @@ namespace JohnUtilities.UnitTests
     {
 
         ConfigurationManager ConfigManager;
-        Mock<INNS_FileService> FileService_Mock;
+        Mock<IJU_FileService> FileService_Mock;
         List<ConfigurationElement> container = new List<ConfigurationElement>();
 
         [TestInitialize]
         public void SetupTests()
         {
-            FileService_Mock = new Mock<INNS_FileService>();
+            FileService_Mock = new Mock<IJU_FileService>();
         }
         [TestMethod]
         public void GetConfigurationSettings_UsingDefaultValueAttribute_ReturnsCorrectValue()
@@ -76,7 +76,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void LoadLauncherconfigurationFile_GivenFileExists_ParseConfig()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
 
             var ProcessManager = new ProcessesManager();
@@ -93,10 +93,10 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void LoadLauncherconfigurationFile_GivenFileMissing_ReturnError()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>())).Verifiable();
 
             Logging.GetLogger().Init(mockWriter.Object, null);
@@ -115,10 +115,10 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void LoadEnvironmentConfigurationFile_GivenFileMissing_ReturnError()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(false);
 
-            var mockWriter = new Mock<INNS_StreamWriter>();
+            var mockWriter = new Mock<IJU_StreamWriter>();
             mockWriter.Setup(x => x.WriteLine(It.IsAny<String>())).Verifiable();
 
             Logging.GetLogger().Init(mockWriter.Object, null);
@@ -138,7 +138,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void LoadEnvironmentConfigurationFile_GivenFileExists_ParseConfig()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
 
             var Dict = new List<ConfigurationElement>();
@@ -149,7 +149,7 @@ namespace JohnUtilities.UnitTests
             ConfigManager_Mock.CallBase = true;
             ConfigManager_Mock.Object.AddConfigurationSetting("EnvironmentConfigurationFile", "TestVal");
 
-            var Loader = new ConfigLoading(new NNS_XMLService());
+            var Loader = new ConfigLoading(new JU_XMLService());
             Loader.LoadXMLAsDocument("<JohnUtilitiesConfigFile><EnvironmentConfigurationFile value = \"TestEntry\" /></JohnUtilitiesConfigFile > ");
             Loader.LoadTree(Loader.GetRoot(), new List<ConfigurationElement>());
 
@@ -164,7 +164,7 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void LodConfigurationFile_GivenFileExists_ParseConfig()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
 
             var ProcessManager = new ProcessesManager();
@@ -181,11 +181,11 @@ namespace JohnUtilities.UnitTests
         [TestMethod]
         public void ResolveReferences_GivenConfigLoaded_ReferencesResolved()
         {
-            Mock<INNS_FileService> FileService_Mock = new Mock<INNS_FileService>();
+            Mock<IJU_FileService> FileService_Mock = new Mock<IJU_FileService>();
             FileService_Mock.Setup(x => x.FileExists(It.IsAny<string>())).Returns(true);
 
             var Dict = new List<ConfigurationElement>();
-            Dict.Add(ConfigurationElement.CreateConfigurationElement("TestRef", "Test", "Definitions", "NULL", "NULL", "NULL"));
+            Dict.Add(ConfigurationElement.CreateConfigurationElement("TestRef", "Test", "NULL", "Definitions", "NULL", "NULL"));
             Dict.Add(ConfigurationElement.CreateConfigurationElement("TestElement", "$TestRef - Reference Value", "Definitions", "NULL", "NULL"));
 
             var ProcessManager = new ProcessesManager();
@@ -286,9 +286,9 @@ namespace JohnUtilities.UnitTests
         public void GetItemsWithParent_GivenParent_ReturnsCorrectList()
         {
             List<ConfigurationElement> Container = new List<ConfigurationElement>();
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", "TestValue", "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", "TestValue2", "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", "TestValue3", "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", "TestValue", "NULL", "TestParent.Parent",  "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", "TestValue2", "NULL", "TestParent.Parent", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", "TestValue3", "NULL",  "TestParent.Parent", "NULL"));
 
             List<ConfigurationElement> results = new List<ConfigurationElement>();
 
@@ -313,9 +313,9 @@ namespace JohnUtilities.UnitTests
         public void GetItemsWithDirectParent_GivenParent_ReturnsCorrectList()
         {
             List<ConfigurationElement> Container = new List<ConfigurationElement>();
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", "TestValue", "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", "TestValue2", "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", "TestValue3", "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", "TestValue", "NULL", "TestParent.Parent", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", "TestValue2", "NULL", "TestParent.Parent", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", "TestValue3", "NULL", "TestParent.Parent", "NULL"));
 
             List<ConfigurationElement> results = new List<ConfigurationElement>();
 
@@ -345,9 +345,9 @@ namespace JohnUtilities.UnitTests
 
 
             List<ConfigurationElement> Container = new List<ConfigurationElement>();
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "NULL", "TestParent.Parent", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "NULL", "TestParent.Parent", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "NULL", "TestParent.Parent", "NULL"));
 
             List<ConfigurationElement> results = new List<ConfigurationElement>();
 
@@ -422,9 +422,9 @@ namespace JohnUtilities.UnitTests
 
 
             List<ConfigurationElement> Container = new List<ConfigurationElement>();
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "TestParent.Parent", "NULL", "NULL"));
-            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "NULL", "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "NULL", "TestParent.Parent", "NULL", "NULL"));
+            Container.Add(ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "NULL", "TestParent.Parent", "NULL", "NULL"));
 
             List<ConfigurationElement> results = new List<ConfigurationElement>();
 
@@ -494,9 +494,9 @@ namespace JohnUtilities.UnitTests
 
 
             List<ConfigurationElement> Container = new List<ConfigurationElement>();
-            var elm1 = ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "TestParent.Parent", "NULL", "NULL");
-            var elm2 = ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "TestParent.Parent", "NULL", "NULL");
-            var elm3 = ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "TestParent.Parent.TestOperation.AnotherTestOperation", "NULL", "NULL");
+            var elm1 = ConfigurationElement.CreateConfigurationElement("TestKey", attributeList1, "NULL", "TestParent.Parent", "NULL", "NULL");
+            var elm2 = ConfigurationElement.CreateConfigurationElement("TestKey2", attributeList2, "NULL", "TestParent.Parent", "NULL", "NULL");
+            var elm3 = ConfigurationElement.CreateConfigurationElement("TestKey3", attributeList3, "NULL", "TestParent.Parent.TestOperation.AnotherTestOperation", "NULL", "NULL");
             Container.Add(elm1);
             Container.Add(elm2);
             Container.Add(elm3);

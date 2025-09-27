@@ -21,7 +21,7 @@ namespace JohnUtilities.UnitTests
             var processesList = new Mock<IList<IProcessOpener>>();
             var mockEnumerator = new Mock<IEnumerator<ProcessOpener>>();
 
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
             var logger = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
 
@@ -47,7 +47,7 @@ namespace JohnUtilities.UnitTests
         {
             var processesList = new List<IProcessOpener>();
 
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
             var logger = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
 
@@ -85,7 +85,7 @@ namespace JohnUtilities.UnitTests
         {
             var processesList = new List<IProcessOpener>();
 
-            var StreamWriter_Mock = new Mock<INNS_StreamWriter>();
+            var StreamWriter_Mock = new Mock<IJU_StreamWriter>();
             StreamWriter_Mock.Setup(x => x.WriteLine(It.IsAny<string>())).Verifiable();
             var logger = Logging.GetLogger().Init(StreamWriter_Mock.Object, null);
 
@@ -163,13 +163,13 @@ namespace JohnUtilities.UnitTests
         {
             var processesList = new List<IProcessOpener>();
 
-            var nnsProc = new Mock<INNS_Process>();
-            nnsProc.SetupAllProperties();
-            nnsProc.Setup(x => x.Start()).Returns(true);
+            var JUProc = new Mock<IJU_Process>();
+            JUProc.SetupAllProperties();
+            JUProc.Setup(x => x.Start()).Returns(true);
             var realProcess = new Process();
             realProcess.StartInfo.FileName = "TestLoc";
-            nnsProc.Object.Process = realProcess;
-            var process = new ProcessOpener("TestProc", process: nnsProc.Object);
+            JUProc.Object.Process = realProcess;
+            var process = new ProcessOpener("TestProc", process: JUProc.Object);
 
             processesList.Add(process);
 
@@ -187,13 +187,13 @@ namespace JohnUtilities.UnitTests
         {
             var processesList = new List<IProcessOpener>();
 
-            var nnsProc = new Mock<INNS_Process>();
-            nnsProc.SetupAllProperties();
-            nnsProc.Setup(x => x.Start()).Returns(true);
+            var JUProc = new Mock<IJU_Process>();
+            JUProc.SetupAllProperties();
+            JUProc.Setup(x => x.Start()).Returns(true);
             var realProcess = new Process();
             realProcess.StartInfo.FileName = "TestLoc";
-            nnsProc.Object.Process = realProcess;
-            var process = new ProcessOpener("TestProc2", process: nnsProc.Object);
+            JUProc.Object.Process = realProcess;
+            var process = new ProcessOpener("TestProc2", process: JUProc.Object);
 
             processesList.Add(process);
 
@@ -380,7 +380,7 @@ namespace JohnUtilities.UnitTests
             var processesList = new List<IProcessOpener>();
             var realProcess = new Process();
             realProcess.StartInfo.FileName = "TestLoc";
-            var process = new Mock<INNS_Process>();
+            var process = new Mock<IJU_Process>();
             process.SetupProperty(x => x.Process, realProcess);
             process.CallBase = true;
             process.Setup(x => x.GetExitCode()).Returns(37);

@@ -18,7 +18,7 @@ namespace JohnUtilities.UnitTests
             var AttributeList = new List<Attribute>();
             AttributeList.Add(new Attribute("TestAttribute", "TestValue"));
 
-            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList, "TestParent", "NULL");
+            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList, "", "TestParent", "NULL");
 
             var result = element.GetAttribute("TestAttribute");
 
@@ -30,7 +30,7 @@ namespace JohnUtilities.UnitTests
             var AttributeList = new List<Attribute>();
             AttributeList.Add(new Attribute("TestAttribute2", "TestValue"));
 
-            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList, "TestParent", "NULL");
+            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList, "", "TestParent", "NULL");
 
             var result = element.GetAttribute("TestAttribute");
 
@@ -41,7 +41,7 @@ namespace JohnUtilities.UnitTests
         {
             var AttributeList = new Mock<IList<Attribute>>();
 
-            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList.Object, "TestParent", "NULL");
+            var element = ConfigurationElement.CreateConfigurationElement("TestKey", AttributeList.Object, "", "TestParent", "NULL");
 
             var result = element.GetAttribute("TestAttribute");
 
