@@ -17,10 +17,10 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore dependencies
-        run: nuget restore "./John'sUtilities/JohnsUtilities.csproj" -PackagesDirectory ../packages
+        run: nuget restore "./John'sUtilities/JohnsUtilities.csproj" -PackagesDirectory ../JohnsUtilities/packages
 
       - name: Restore dependencies
-        run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore
+        run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore /p:RestorePackagesPath=../JohnsUtilities/packages
 
       - name: Show packages folder tree
         shell: pwsh
