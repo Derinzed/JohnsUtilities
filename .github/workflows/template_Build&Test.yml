@@ -15,7 +15,10 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore dependencies
-        run: msbuild ./JohnsUtilities.sln /t:Restore
+        run: msbuild "./John'sUtilities/JohnsUtilities.sln /t:Restore"
+
+      - name: Restore dependencies
+        run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.sln /t:Restore"
 
       - name: Build Release
         run: dotnet build ./JohnsUtilities.sln --configuration Release --no-restore
