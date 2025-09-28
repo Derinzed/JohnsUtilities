@@ -37,8 +37,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Run tests
-        run: |
-          vstest.console.exe **\*UnitTests.dll --Platform:x64 --Framework:Framework45
+        run: dotnet test JohnsUtilities.sln --configuration Release --no-build
 
       - name: Pack with MSBuild
         run: msbuild MyAwesomeLibrary.csproj /t:pack /p:Configuration=Release
