@@ -20,6 +20,12 @@ jobs:
       - name: Restore dependencies
         run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore
 
+      - name: Show packages folder tree
+        shell: pwsh
+        run: |
+          Get-ChildItem "C:\Users\runneradmin\.nuget\packages" -Recurse |
+            Format-List FullName
+
       - name: Build Release
         run: dotnet build "./John'sUtilities/JohnsUtilities.csproj" --configuration Release --no-restore
         working-directory: ${{ github.workspace }}
