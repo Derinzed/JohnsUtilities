@@ -40,7 +40,7 @@ jobs:
         run: dotnet test JohnsUtilities.sln --configuration Release --no-build
 
       - name: Pack with MSBuild
-        run: msbuild MyAwesomeLibrary.csproj /t:pack /p:Configuration=Release
+        run: msbuild "John'sUtilities/JohnsUtilities.csproj" /t:pack /p:Configuration=Release
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
