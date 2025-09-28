@@ -23,10 +23,9 @@ jobs:
         run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore /p:RestorePackagesPath=../JohnsUtilities/packages
 
       - name: Show packages folder tree
-        shell: pwsh
+        shell: cmd
         run: |
-          Get-ChildItem "D:\a\JohnsUtilities\JohnsUtilities\packages" -Recurse |
-            Format-List FullName
+          tree
 
       - name: Build Release
         run: dotnet build "./John'sUtilities/JohnsUtilities.csproj" --configuration Release --no-restore
