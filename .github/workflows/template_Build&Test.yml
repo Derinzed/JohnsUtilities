@@ -23,7 +23,7 @@ jobs:
       - name: Show packages folder tree
         shell: pwsh
         run: |
-          Get-ChildItem "C:\Users\runneradmin\.nuget\packages" -Recurse |
+          Get-ChildItem "D:\a\JohnsUtilities\packages" -Recurse |
             Format-List FullName
 
       - name: Build Release
