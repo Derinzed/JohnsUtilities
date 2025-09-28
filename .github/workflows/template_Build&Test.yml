@@ -25,7 +25,7 @@ jobs:
       - name: Show packages folder tree
         shell: pwsh
         run: |
-          Get-ChildItem "D:\a\JohnsUtilities\packages" -Recurse |
+          Get-ChildItem "D:\a\JohnsUtilities\JohnsUtilities\packages" -Recurse |
             Format-List FullName
 
       - name: Build Release
