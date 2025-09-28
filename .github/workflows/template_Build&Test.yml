@@ -38,8 +38,13 @@ jobs:
       - name: Run tests
         run: dotnet test JohnsUtilities.sln --configuration Release --no-build
 
+      - name: Show where I'm at
+        shell: cmd
+        run: |
+          cd
+
       - name: Pack with MSBuild
-        run: nuget pack "John'sUtilities/JohnsUtilities.csproj" -OutputDirectory "build" -PackagesDirectory ".\\packages" -Properties Configuration=Release
+        run: nuget pack "John'sUtilities/JohnsUtilities.csproj" -OutputDirectory "build" -PackagesDirectory ".\JohnsUtilities\packages" -Properties Configuration=Release
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
