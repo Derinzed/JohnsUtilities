@@ -21,7 +21,11 @@ jobs:
         run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore
 
       - name: Build Release
-        run: dotnet build ./JohnsUtilities.sln --configuration Release --no-restore
+        run: dotnet build "./John'sUtilities/JohnsUtilities.csproj" --configuration Release --no-restore
+        working-directory: ${{ github.workspace }}
+
+      - name: Build Tests
+        run: dotnet build "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" --configuration Release --no-restore
         working-directory: ${{ github.workspace }}
 
       - name: Run tests
