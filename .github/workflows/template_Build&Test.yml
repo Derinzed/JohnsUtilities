@@ -12,10 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore dependencies
-        run: dotnet restore "./John'sUtilities/JohnsUtilities.csproj"
-
-      - name: Restore dependencies
-        run: dotnet restore "./JohnUtilitiesUnitTests/JohnsUtilitiesUnitTests.csproj"
+        run: msbuild ./JohnsUtilities.sln /t:Restore
 
       - name: Build Release
         run: dotnet build ./JohnsUtilities.sln --configuration Release --no-restore
