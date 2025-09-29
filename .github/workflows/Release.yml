@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
-
     uses: ./.github/workflows/template_Build&Test.yml
+
+  release:
     uses: ./.github/workflows/template_Package.yml
