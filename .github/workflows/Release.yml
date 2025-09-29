@@ -11,4 +11,5 @@ jobs:
     uses: ./.github/workflows/template_Build&Test.yml
 
   release:
+    needs: build
     uses: ./.github/workflows/template_Package.yml
