@@ -25,7 +25,7 @@ jobs:
       - name: Show packages folder tree
         shell: cmd
         run: |
-          tree
+          tree /F 
 
       - name: Build Release
         run: dotnet build "./John'sUtilities/JohnsUtilities.csproj" --configuration Release --no-restore
