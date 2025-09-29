@@ -51,6 +51,9 @@ jobs:
         id: get_tag
         run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
 
+      - name: Debug tag
+        run: echo "Extracted tag: ${{ steps.get_tag.outputs.tag }}"
+
       - name: Pack with MSBuild
         shell: cmd
         run: |
