@@ -17,7 +17,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Restore dependencies
-        run: msbuild "./John'sUtilities/JohnsUtilities.csproj" /t:Restore /p:RestorePackagesPath="../JohnsUtilities/packages" /p:SolutionDir="..//" /p:RestorePackagesConfig=true
+        run: msbuild "./John'sUtilities/JohnsUtilities.csproj" /t:Restore /p:RestorePackagesPath="../JohnsUtilities/packages" /p:SolutionDir="D:\a\JohnsUtilities\JohnsUtilities" /p:RestorePackagesConfig=true
 
       - name: Restore dependencies
         run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore /p:RestorePackagesPath=../JohnsUtilities/packages
