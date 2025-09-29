@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>JohnsUtilities</id>
+    <version>1.0.0</version>
+    <title>JohnsUtilities</title>
+    <authors>John</authors>
+    <description>Description</description>
+    <copyright>Copyright ©  2024</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="System.Buffers" version="4.6.1" />
+        <dependency id="System.Memory" version="4.6.3" />
+        <dependency id="System.Runtime.CompilerServices.Unsafe" version="6.1.2" />
+        <dependency id="System.Text.Json" version="9.0.9" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.6.3" />
+        <dependency id="System.ValueTuple" version="4.6.1" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
