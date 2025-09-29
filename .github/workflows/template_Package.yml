@@ -2,16 +2,16 @@ name: template_Package
 
 on:
   workflow_call:
+    inputs:
+        tag:
+          description: 'What version tag to release to git as'
+          required: true
+          type: string
 
 jobs:
   build:
     runs-on: windows-latest
-    inputs:
-      tag:
-        description: 'What version tag to release to git as'
-        required: true
-        type: string
-
+    
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
