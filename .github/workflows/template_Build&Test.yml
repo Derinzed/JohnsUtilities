@@ -47,7 +47,7 @@ jobs:
         shell: cmd
         run: |
           cd ".\\John'sUtilities"
-          nuget pack "JohnsUtilities.csproj" -OutputDirectory "build" -SolutionDirectory ".\\" -PackagesDirectory "..\\packages" -Verbosity detailed -Properties Configuration=Release -Properties Platform=AnyCPU
+          nuget pack "JohnsUtilities.csproj" -OutputDirectory "build" -SolutionDirectory ".\\" -PackagesDirectory "..\\packages" -Verbosity detailed -MSBuildVersion 17.14.4.20708 -Properties Configuration=Release -Properties Platform=AnyCPU
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
