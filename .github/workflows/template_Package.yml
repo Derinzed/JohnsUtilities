@@ -6,6 +6,11 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    inputs:
+      tag:
+        description: 'What version tag to release to git as'
+        required: true
+        type: string
 
     steps:
       - name: Download build artifacts
@@ -14,10 +19,6 @@ jobs:
           name: build-output
           path: ./build
 
-      - name: Get latest tag
-        id: get_tag
-        run: |
-          echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
@@ -25,8 +26,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.TAG }}
-          release_name: Release ${{ env.TAG }}
+          tag_name: ${{ inputs.tag }}
+          release_name: Release ${{ inputs.tag }}
           draft: false
           prerelease: false
 
@@ -36,8 +37,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/JohnsUtilities.${{ env.TAG }}.nupkg
-          asset_name: JohnsUtilities.${{ env.TAG }}.nupkg
+          asset_path: ./build/JohnsUtilities.${{ inputs.tag }}.nupkg
+          asset_name: JohnsUtilities.${{ inputs.tag }}.nupkg
           asset_content_type: application/zip
 
       - name: Push package to GitHub Packages

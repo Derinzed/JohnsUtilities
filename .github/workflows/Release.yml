@@ -11,5 +11,7 @@ jobs:
     uses: ./.github/workflows/template_Build&Test.yml
 
   release:
-    needs: build
+    needs: 'build'
     uses: ./.github/workflows/template_Package.yml
+    with: 
+      version: ${{ needs.build.output.tag }}

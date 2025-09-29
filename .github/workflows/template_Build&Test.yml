@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -42,6 +44,10 @@ jobs:
         shell: cmd
         run: |
           cd
+
+      - name: Get latest tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
 
       - name: Pack with MSBuild
         shell: cmd
