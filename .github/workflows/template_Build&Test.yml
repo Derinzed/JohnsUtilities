@@ -46,7 +46,6 @@ jobs:
       - name: Pack with MSBuild
         shell: cmd
         run: |
-          nuget config -verbosity detailed
           cd ".\\John'sUtilities"
           nuget pack "JohnsUtilities.csproj" -ConfigFile "..\\NuGet.config" -OutputDirectory "build" -SolutionDirectory ".\\" -PackagesDirectory "..\\packages" -Verbosity detailed -Properties Configuration=Release -Properties Platform=AnyCPU
 
