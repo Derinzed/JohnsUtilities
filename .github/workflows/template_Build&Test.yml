@@ -20,7 +20,7 @@ jobs:
         run: msbuild "./John'sUtilities/JohnsUtilities.csproj" /t:Restore /p:RestorePackagesPath="../JohnsUtilities/packages" /p:SolutionDir="D:\a\JohnsUtilities\JohnsUtilities" /p:RestorePackagesConfig=true
 
       - name: Restore dependencies
-        run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore /p:RestorePackagesPath=../JohnsUtilities/packages
+        run: msbuild "./JohnUtilitiesUnitTests/JohnUtilitiesUnitTests.csproj" /t:Restore
 
       - name: Show packages folder tree
         shell: cmd
@@ -47,7 +47,7 @@ jobs:
         shell: cmd
         run: |
           cd ".\\John'sUtilities"
-          nuget pack "JohnsUtilities.csproj" -Build -ConfigFile "..\\NuGet.config" -OutputDirectory "build" -Verbosity detailed -Properties Configuration=Release
+          nuget pack "JohnsUtilities.csproj" -ConfigFile "..\\NuGet.config" -OutputDirectory "build" -Verbosity detailed -Properties Configuration=Release
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
