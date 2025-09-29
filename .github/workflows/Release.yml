@@ -1,0 +1,13 @@
+name: PR Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    uses: ./.github/workflows/template_Build&Test.yml
+    uses: ./.github/workflows/template_Package.yml

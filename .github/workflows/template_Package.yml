@@ -14,5 +14,31 @@ jobs:
           name: build-output
           path: ./build
 
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG }}
+          release_name: Release ${{ env.TAG }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/JohnsUtilities.${{ env.TAG }}.nupkg
+          asset_name: JohnsUtilities.${{ env.TAG }}.nupkg
+          asset_content_type: application/zip
+
       - name: Push package to GitHub Packages
         run: dotnet nuget push **\build\*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
