@@ -46,8 +46,8 @@ jobs:
       - name: Pack with MSBuild
         shell: cmd
         run: |
-          cd ".\John'sUtilities"
-          nuget pack "JohnsUtilities.csproj" -OutputDirectory "build" -SolutionDirectory ".\" -PackagesDirectory "..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.9" -Verbosity detailed -Properties Configuration=Release -Properties Platform=AnyCPU
+          cd ".\\John'sUtilities"
+          nuget pack "JohnsUtilities.csproj" -OutputDirectory "build" -SolutionDirectory ".\\" -PackagesDirectory "..\\packages" -Verbosity detailed -Properties Configuration=Release -Properties Platform=AnyCPU
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
