@@ -14,4 +14,4 @@ jobs:
     needs: 'build'
     uses: ./.github/workflows/template_Package.yml
     with: 
-      tag: ${{ needs.build.output.tag }}
+      tag: ${{ needs.build.outputs.tag }}
