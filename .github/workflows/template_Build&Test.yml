@@ -2,6 +2,10 @@ name: template_Build
 
 on:
   workflow_call:
+    outputs:
+      tag:
+        description: "Version tag detected"
+        value: ${{ jobs.build.outputs.tag }}
 
 jobs:
   build:
