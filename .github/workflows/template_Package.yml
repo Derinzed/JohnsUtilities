@@ -19,6 +19,11 @@ jobs:
           name: build-output
           path: ./build
 
+      - name: Show packages folder tree
+        shell: cmd
+        run: |
+          cd
+          tree /F 
 
       - name: Create GitHub Release
         id: create_release
